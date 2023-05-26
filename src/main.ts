@@ -1,5 +1,7 @@
 import './style.css'
 import './Lotery'
+import './Lotery/components/Card'
+import './Lotery/components/TablePlayer'
 
 const manzanas = ["🍎", "🍏", "🍎", "🍎", "🍏"];
 

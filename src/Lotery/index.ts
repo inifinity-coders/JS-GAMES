@@ -5,13 +5,13 @@ import viewDealer from './views/dealerView.html?raw'
 
 const CARD_PER_PLAYER = 16
 const NUM_PLAYERS = 6
-const TIME_TO_DELAY = 500
+const TIME_TO_DELAY = 1000
 
 let currentCard = ''
 
-const app = document.getElementById('app')
-if(app){
-    app.innerHTML = viewDealer
+const dealerCont = document.querySelector('.containerDealer')
+if(dealerCont){
+    dealerCont.innerHTML = viewDealer
 }
 const currentCardElement = document.getElementById('currentCard')
 const playerWinner = document.getElementById('winner')
@@ -30,6 +30,12 @@ generatePlayers(cards, NUM_PLAYERS, CARD_PER_PLAYER)
 const play = async(state:GameState):Promise<void> => {
 
     const dealer = suffleCards(state.dealer)
+    const playersCont = document.querySelector('.tablesPlayer')
+    if(playersCont){
+        console.log(gameState.players[0])
+        playersCont.innerHTML = `<lt-table-player player={${gameState.players[0]}}></lt-table-player>`
+    }
+    
 
     /* dealer.forEach((card) => {
         console.log(`Gritón: ${card.name}`)
@@ -51,7 +57,7 @@ const play = async(state:GameState):Promise<void> => {
             currentCard = card.name
             console.log(`Gritón: ${currentCard}`)
             if(currentCardElement){
-                currentCardElement.innerHTML = `Gritón: ${currentCard}`
+                currentCardElement.innerHTML = `<lt-card id="${card.id}" src="/cards/${card.id}.jpg" name="${card.name}"></lt-card>`
             }
             for(const player of state.players){
                 const index = player.table.findIndex((_card) => _card.id === card.id)
